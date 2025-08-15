@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const app = express()
 const Product = require('./models/product.model')
 const productRoute = require('./routes/product.route')
+const userRoute = require('./routes/user.route')
+const User = require('./models/user.model')
 require('dotenv').config();
 
 app.use(express.json())
@@ -11,10 +13,7 @@ app.use(express.urlencoded({ extended: false }))
 
 //routes
 app.use("/api/products", productRoute);
-
-app.get('/', (req, res) => {
-  res.send('Hello!')
-})
+app.use("/api/users", userRoute);
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {

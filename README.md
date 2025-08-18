@@ -3,6 +3,11 @@
 This is my ongoing backend learning project built with **Node.js**, **Express**, and **MongoDB**.  
 I started with a simple CRUD API for products, and later added **user authentication** and **ownership rules** — similar to Ebay?.
 
+Now, I have expanded it with:
+- **Profile management** (update name, profile picture, and password with old password verification).  
+- **Forgot / Reset password** via email using **Nodemailer**.  
+- **File upload support** for profile pictures.
+
 ## Installation
 
 1. Clone the repository:
@@ -35,9 +40,12 @@ npm start
 ## API Endpoints
 Auth Routes
 ```http
-POST /api/users/register  # Register a new user
-POST /api/users/login     # Login and get token
-GET  /api/users/me        # Get logged-in user
+POST /api/users/register              # Register a new user
+POST /api/users/login                 # Login and get token
+GET  /api/users/profile               # Get logged-in user (requires token)
+PUT  /api/users/profile               # Update user profile (name, password, profile picture)
+POST /api/users/forgotpassword        # Send reset token to email
+PUT  /api/users/resetpassword/:token  # Reset password using token
 ```
 
 Product Routes
@@ -57,8 +65,15 @@ jsonwebtoken — JWT authentication
 dotenv — Load environment variables
 express-async-handler — Error handling
 colors — Colored console output
+nodemailer — Sending reset password emails
+multer — File upload middleware (for profile pictures)
 nodemon (dev) — Auto-reload server
 
-Contributing
+## Recent Changes
+Added profile update route (PUT /api/users/profile) with file upload and password change support.
+Implemented forgot/reset password flow with email reset token.
+Added sendEmail.js utility for sending emails.
+Created uploadMiddleware.js to handle profile picture uploads.
 
+## Contributing
 Pull requests are welcome. For major changes, open an issue first to discuss what you’d like to change.
